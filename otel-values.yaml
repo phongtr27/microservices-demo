@@ -1,17 +1,25 @@
 mode: deployment
 
+podAnnotations:
+  sidecar.istio.io/inject: "false"
+
 image:
   repository: otel/opentelemetry-collector-k8s
 
 config:
   receivers:
+    jaeger: null
+    prometheus: null
+    zipkin: null
     otlp:
       protocols:
         grpc:
+          endpoint: 0.0.0.0:4317
         http:
+          endpoint: 0.0.0.0:4318
 
   processors:
-    batch:
+    batch: {}
 
   exporters:
     debug:
@@ -26,3 +34,15 @@ config:
           - batch
         exporters:
           - debug
+      metrics: null
+      logs: null
+
+ports:
+  jaeger-compact:
+    enabled: false
+  jaeger-thrift:
+    enabled: false
+  jaeger-grpc:
+    enabled: false
+  zipkin:
+    enabled: false

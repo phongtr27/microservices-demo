@@ -10,11 +10,11 @@ helm install istiod istio/istiod -n istio-system --wait
 ## Tag namespace
 kubectl label namespace default istio-injection=enabled
 
-## Deploy application
-kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/refs/heads/main/release/kubernetes-manifests.yaml
-
 ## Deploy OTEL collector
 helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
-helm install my-opentelemetry-collector open-telemetry/opentelemetry-collector \
-   --set image.repository="otel/opentelemetry-collector-k8s" \
-   --set mode=deployment
+helm install my-opentelemetry-collector \
+  open-telemetry/opentelemetry-collector \
+  -f otel-values.yaml
+
+## Deploy application
+kubectl apply -f https://raw.githubusercontent.com/phongtr27/microservices-demo/refs/heads/main/kubernetes-manifests.yaml
