@@ -1,4 +1,4 @@
-mode: deployment
+mode: daemonset
 
 podAnnotations:
   sidecar.istio.io/inject: "false"
@@ -24,6 +24,11 @@ config:
   exporters:
     debug:
       verbosity: detailed
+    otlp/tempo:
+      endpoint: "tempo.observability.svc.cluster.local:4317"
+      tls:
+        insecure: true
+
 
   service:
     pipelines:
@@ -34,6 +39,7 @@ config:
           - batch
         exporters:
           - debug
+          - otlp/tempo
       metrics: null
       logs: null
 

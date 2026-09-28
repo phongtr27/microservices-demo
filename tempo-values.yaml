@@ -1,0 +1,10 @@
+storage:
+  trace:
+    backend: local
+    local:
+      blocks_storage_dir: /var/tempo/traces
+    wal:
+      dir: /var/tempo/wal
+
+persistence:
+  enabled: false
