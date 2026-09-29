@@ -1,0 +1,12 @@
+meshConfig:
+  enableTracing: true
+  defaultConfig:
+    tracing:
+      sampling: 100.0
+  extensionProviders:
+    - name: otel-tracing
+      opentelemetry:
+        service: my-opentelemetry-collector.observability.svc.cluster.local
+        port: 4317
+        resource_detectors:
+          environment: {}
