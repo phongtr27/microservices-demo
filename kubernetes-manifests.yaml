@@ -95,7 +95,7 @@ spec:
           - name: ENABLE_TRACING
             value: "1"
           - name: COLLECTOR_SERVICE_ADDR
-            value: "otel-collector.observability.svc.cluster.local:4317"
+            value: "$(NODE_IP):4317"
           - name: OTEL_SERVICE_NAME
             value: "frontend"
           # # ENV_PLATFORM: One of: local, gcp, aws, azure, onprem, alibaba
@@ -276,7 +276,7 @@ spec:
         - name: DISABLE_PROFILER
           value: "1"
         - name: COLLECTOR_SERVICE_ADDR
-          value: "otel-collector.observability.svc.cluster.local:4317"
+          value: "$(NODE_IP):4317"
         - name: OTEL_SERVICE_NAME
           value: "currencyservice"
         - name: ENABLE_TRACING
@@ -599,7 +599,7 @@ spec:
         - name: DISABLE_PROFILER
           value: "1"
         - name: COLLECTOR_SERVICE_ADDR
-          value: "otel-collector.observability.svc.cluster.local:4317"
+          value: "$(NODE_IP):4317"
         - name: OTEL_SERVICE_NAME
           value: "recommendationservice"
         - name: ENABLE_TRACING
@@ -691,7 +691,7 @@ spec:
           - name: CART_SERVICE_ADDR
             value: "cartservice:7070"
           - name: COLLECTOR_SERVICE_ADDR
-            value: "otel-collector.observability.svc.cluster.local:4317"
+            value: "$(NODE_IP):4317"
           - name: OTEL_SERVICE_NAME
             value: "checkoutservice"
           - name: ENABLE_TRACING
@@ -768,7 +768,7 @@ spec:
         - name: DISABLE_PROFILER
           value: "1"
         - name: COLLECTOR_SERVICE_ADDR
-          value: "otel-collector.observability.svc.cluster.local:4317"
+          value: "$(NODE_IP):4317"
         - name: OTEL_SERVICE_NAME
           value: "emailservice"
         - name: ENABLE_TRACING
@@ -853,7 +853,7 @@ spec:
         - name: DISABLE_PROFILER
           value: "1"
         - name: COLLECTOR_SERVICE_ADDR
-          value: "otel-collector.observability.svc.cluster.local:4317"
+          value: "$(NODE_IP):4317"
         - name: OTEL_SERVICE_NAME
           value: "paymentservice"
         - name: ENABLE_TRACING
@@ -1009,7 +1009,7 @@ spec:
         - name: DISABLE_PROFILER
           value: "1"
         - name: COLLECTOR_SERVICE_ADDR
-          value: "otel-collector.observability.svc.cluster.local:4317"
+          value: "$(NODE_IP):4317"
         - name: OTEL_SERVICE_NAME
           value: "productcatalogservice"
         - name: ENABLE_TRACING
