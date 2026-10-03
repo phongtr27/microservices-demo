@@ -1,0 +1,45 @@
+# 1. Disable the noisy master components that bind to localhost (127.0.0.1)
+kubeControllerManager:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeScheduler:
+  enabled: false
+
+# 2. Configure Grafana and inject your Tempo data source cleanly
+grafana:
+  additionalDataSources:
+    - name: Tempo
+      type: tempo
+      access: proxy
+      url: http://tempo.observability.svc.cluster.local:3200
+      jsonData:
+        httpMethod: GET
+
+# 3. Enable the dynamic annotation scraping pipeline for Istio sidecars
+prometheus:
+  prometheusSpec:
+    # Allows Prometheus to look for metrics targets across all cluster namespaces
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+
+    additionalScrapeConfigs:
+      - job_name: 'kubernetes-pods-autodiscover'
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          # Only scrape pods that contain the annotation: prometheus.io/scrape: "true"
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          # Read the custom metrics endpoint path (Istio sets this to /stats/prometheus)
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
+          # Route traffic directly to the correct metrics port (Istio sets this to 15020)
+          - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+            action: replace
+            regex: ([^:]+)(?::\d+)?;(\d+)
+            replacement: $1:$2
+            target_label: __address__
