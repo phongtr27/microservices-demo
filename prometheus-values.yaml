@@ -5,6 +5,8 @@ kubeEtcd:
   enabled: false
 kubeScheduler:
   enabled: false
+kubeProxy:
+  enabled: false
 
 # 2. Configure Grafana and inject your Tempo data source cleanly
 grafana:
