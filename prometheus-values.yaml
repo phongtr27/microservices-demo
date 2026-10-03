@@ -17,6 +17,15 @@ grafana:
       url: http://tempo.observability.svc.cluster.local:3200
       jsonData:
         httpMethod: GET
+    - name: Prometheus
+      type: prometheus
+      access: proxy
+      url: http://prometheus-kube-prometheus-prometheus.observability.svc.cluster.local:9090
+      jsonData:
+        httpMethod: POST
+        exemplarTraceIdDestinations:
+          - datasourceUid: 'Tempo'
+            name: traceID
 
 # 3. Enable the dynamic annotation scraping pipeline for Istio sidecars
 prometheus:
