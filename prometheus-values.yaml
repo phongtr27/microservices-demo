@@ -26,6 +26,16 @@ grafana:
         exemplarTraceIdDestinations:
           - datasourceUid: 'Tempo'
             name: traceID
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki-gateway.observability.svc.cluster.local:80
+      jsonData:
+        derivedFields:
+          - datasourceUid: 'Tempo'
+            matcherRegex: '(?:trace_id|traceID|traceId)="?([a-fA-F0-9]+)"?'
+            name: traceID
+            url: '$${__value.raw}'
 
 # 3. Enable the dynamic annotation scraping pipeline for Istio sidecars
 prometheus:
