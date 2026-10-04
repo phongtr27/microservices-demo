@@ -1,35 +1,31 @@
 deploymentMode: Distributed
 
 minio:
-  enabled: true
-  persistence:
-    size: 10Gi
+  enabled: false
 
 loki:
   auth_enabled: false
 
-  commonConfig:
-    replication_factor: 2
+  # All system engine configs must live inside the loki.config block
+  config:
+    common:
+      replication_factor: 2
 
-  schema_config:
-    configs:
-      - from: "2024-04-01"
-        store: tsdb
-        object_store: s3
-        schema: v13
-        index:
-          prefix: index_
-          period: 24h
+    schema_config:
+      configs:
+        - from: "2024-04-01"            # Past date to ensure immediate activation
+          store: tsdb                  # Required for OpenTelemetry/Structured metadata
+          object_store: s3             # Maps to the s3 configurations below
+          schema: v13                  # Modern schema version required by Loki
+          index:
+            prefix: index_
+            period: 24h
 
-  storage:
-    type: s3
-    s3:
-      endpoint: "loki-minio.observability.svc.cluster.local:9000"
-      bucketnames: chunks
-      secretAccessKey: "supersecretkey"
-      accessKeyId: "minioadmin"
-      insecure: true
-      s3ForcePathStyle: true
+    storage_config:
+      aws:
+        s3: "s3://minioadmin:supersecretkey@loki-minio.observability.svc.cluster.local:9000/chunks"
+        s3forcepathstyle: true
+        insecure: true
 
   limits_config:
     allow_structured_metadata: true
