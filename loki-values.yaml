@@ -1,9 +1,7 @@
 deploymentMode: Distributed
 
 minio:
-  enabled: true
-  persistence:
-    size: 10Gi
+  enabled: false
 
 loki:
   auth_enabled: false
@@ -19,19 +17,23 @@ loki:
           prefix: index_
           period: 24h
 
-  # 2. RUNTIME STORAGE CONNECTION (camelCase)
+  # 2. RUNTIME STORAGE CONNECTION (Updated for SeaweedFS)
   storageConfig:
     aws:
-      s3: "s3://minioadmin:supersecretkey@loki-minio.observability.svc.cluster.local:9000/chunks"
+      # Explicit endpoint pointing to the SeaweedFS S3-compatible service port
+      endpoint: "local-s3-s3.observability.svc.cluster.local:8333"
       s3forcepathstyle: true
       insecure: true
+      # SeaweedFS needs non-empty placeholder credential strings to satisfy the driver
+      access_key_id: "seaweedfs"
+      secret_access_key: "seaweedfs"
 
-  # 3. BUCKET MAPPING BLOCK (Both chunks and ruler must be defined)
+  # 3. BUCKET MAPPING BLOCK (SeaweedFS auto-creates buckets on first write)
   storage:
     type: s3
     bucketNames:
       chunks: chunks
-      ruler: chunks       # <-- Add this line to satisfy the validation rule
+      ruler: ruler
 
   limits_config:
     allow_structured_metadata: true
