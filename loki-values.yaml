@@ -1,7 +1,9 @@
 deploymentMode: Distributed
 
 minio:
-  enabled: false
+  enabled: true
+  persistence:
+    size: 10Gi
 
 loki:
   auth_enabled: false
