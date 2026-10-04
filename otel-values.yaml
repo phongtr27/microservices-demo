@@ -41,7 +41,13 @@ config:
           - debug
           - otlp/tempo
       metrics: null
-      logs: null
+      logs:
+        receivers:
+          - otlp
+        processors:
+          - batch
+        exporters:
+          - debug
 
 ports:
   jaeger-compact:
