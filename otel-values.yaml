@@ -36,11 +36,12 @@ config:
       tls:
         insecure: true
 
-    otlphttp/loki:
-      endpoint: "loki-gateway.observability.svc.cluster.local"
-      default_labels_enabled:
-        exporter: true
-        job: true
+    otlphttp/loki_gateway:
+      auth:
+        authenticator: headers_setter
+      endpoint: http://loki-gateway.observability.svc.cluster.local:80/otlp
+      tls:
+        insecure: true
 
   service:
     pipelines:
@@ -61,7 +62,7 @@ config:
           - memory_limiter
         exporters:
           - debug
-          - otlphttp/loki
+          - otlphttp/loki_gateway
 
 ports:
   jaeger-compact:
