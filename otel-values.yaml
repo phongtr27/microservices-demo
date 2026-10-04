@@ -53,8 +53,8 @@ config:
       tls:
         insecure: true
 
-    otlphttp/loki_gateway:
-      endpoint: http://loki-gateway.observability.svc.cluster.local:80/otlp
+    otlphttp/loki:
+      endpoint: http://loki.observability.svc.cluster.local:3100/otlp
       tls:
         insecure: true
 
@@ -78,7 +78,7 @@ config:
           - batch
         exporters:
           - debug
-          - otlphttp/loki_gateway
+          - otlphttp/loki
 
 ports:
   jaeger-compact:
