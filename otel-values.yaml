@@ -29,6 +29,11 @@ config:
       tls:
         insecure: true
 
+    loki:
+      endpoint: "loki-gateway.observability.svc.cluster.local"
+      default_labels_enabled:
+        exporter: true
+        job: true
 
   service:
     pipelines:
@@ -48,6 +53,7 @@ config:
           - batch
         exporters:
           - debug
+          - loki
 
 ports:
   jaeger-compact:
