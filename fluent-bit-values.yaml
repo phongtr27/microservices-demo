@@ -1,25 +1,8 @@
 config:
-  inputs: |
-    [INPUT]
-        Name              tail
-        Path              /var/log/containers/*.log
-        Tag               kube.*
-        multiline.parser  docker, cri
-        Mem_Buf_Limit     50MB
-        Skip_Long_Lines   On
-
-  filters: |
-    [FILTER]
-        Name                kubernetes
-        Match               kube.*
-        Kube_URL            https://kubernetes.default.svc:443
-        Kube_CA_File        /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-        Kube_Token_File     /var/run/secrets/kubernetes.io/serviceaccount/token
-        Kube_Tag_Prefix     kube.var.log.containers.
-        Merge_Log           On
-        Keep_Log            Off
-
   outputs: |
     [OUTPUT]
-        Name    stdout
-        Match   *
+      Name        opentelemetry
+      Match       *
+      Host        my-opentelemetry-collector.observability.svc.cluster.local
+      Port        4317
+      Grpc        On
