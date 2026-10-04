@@ -19,7 +19,14 @@ config:
           endpoint: 0.0.0.0:4318
 
   processors:
-    batch: {}
+    memory_limiter:
+      check_interval: 1s
+      limit_percentage: 75
+      spike_limit_percentage: 15
+    batch:
+      send_batch_size: 8192
+      timeout: 5s
+      send_batch_max_size: 10240
 
   exporters:
     debug:
@@ -51,6 +58,7 @@ config:
           - otlp
         processors:
           - batch
+          - memory_limiter
         exporters:
           - debug
           - loki
