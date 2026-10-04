@@ -24,11 +24,12 @@ loki:
       s3forcepathstyle: true
       insecure: true
 
-  # 3. BUCKET MAPPING BLOCK (Required by workloads like ruler/ingester)
+  # 3. BUCKET MAPPING BLOCK (Both chunks and ruler must be defined)
   storage:
     type: s3
     bucketNames:
       chunks: chunks
+      ruler: chunks       # <-- Add this line to satisfy the validation rule
 
   limits_config:
     allow_structured_metadata: true
