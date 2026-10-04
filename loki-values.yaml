@@ -1,8 +1,26 @@
 deploymentMode: SingleBinary
 
-# Scale down the distributed microservice engine footprint
 singleBinary:
   replicas: 1
+
+# --- FORCE ZERO HINTS TO SATISFY HELM TEMPLATE VALIDATION ---
+backend:
+  replicas: 0
+read:
+  replicas: 0
+write:
+  replicas: 0
+ingester:
+  replicas: 0
+querier:
+  replicas: 0
+queryFrontend:
+  replicas: 0
+distributor:
+  replicas: 0
+gateway:
+  replicas: 0
+# -----------------------------------------------------------
 
 minio:
   enabled: false
@@ -41,7 +59,7 @@ loki:
   limits_config:
     allow_structured_metadata: true
 
-# 4. Turn off heavy separate caching components to save cluster RAM
+# 4. Ephemeral storage settings to bypass PV blockages
 chunksCache:
   persistence:
     enabled: false
