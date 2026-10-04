@@ -1,0 +1,25 @@
+deploymentMode: Distributed
+
+minio:
+  enabled: true
+  persistence:
+    size: 10Gi
+
+loki:
+  auth_enabled: false
+
+  commonConfig:
+    replication_factor: 2
+
+  storage:
+    type: s3
+    s3:
+      endpoint: "loki-minio.observability.svc.cluster.local:9000"
+      bucketnames: chunks
+      secretAccessKey: "supersecretkey"
+      accessKeyId: "minioadmin"
+      insecure: true
+      s3ForcePathStyle: true
+
+  limits_config:
+    allow_structured_metadata: true
