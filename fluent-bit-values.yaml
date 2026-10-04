@@ -1,8 +1,8 @@
 config:
   outputs: |
     [OUTPUT]
-        Name        opentelemetry
-        Match       *
-        Host        my-opentelemetry-collector.observability.svc.cluster.local
-        Port        4317
-        Grpc        On
+        Name            opentelemetry
+        Match           *
+        Host            my-opentelemetry-collector.observability.svc.cluster.local
+        Port            4318
+        Logs_uri        /v1/logs
