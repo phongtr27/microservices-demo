@@ -31,8 +31,9 @@ helm install my-opentelemetry-collector \
 ## Deploy application
 kubectl apply -f https://raw.githubusercontent.com/phongtr27/microservices-demo/refs/heads/main/kubernetes-manifests.yaml
 
-## Deploy Grafana
-helm repo add grafana-community https://grafana-community.github.io/helm-charts
+## Deploy Prometheus and Grafana
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
-helm install grafana grafana-community/grafana -f https://raw.githubusercontent.com/phongtr27/microservices-demo/refs/heads/main/grafana-values.yaml \
- -n observability --create-namespace
+helm install prometheus prometheus-community/kube-prometheus-stack \
+  -f https://raw.githubusercontent.com/phongtr27/microservices-demo/refs/heads/main/prometheus-values.yaml \
+  -n observability --create-namespace
