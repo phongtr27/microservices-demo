@@ -13,8 +13,8 @@ spec:
   # Source of the application manifests
   source:
     repoURL: https://github.com/phongtr27/microservices-demo.git  # Can point to either a Helm chart repo or a git repo.
-    targetRevision: HEAD  # For Helm, this refers to the chart version.
-    path: dev  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
+    targetRevision: dev
+    path: kubernetes-manifests
 
   # Destination cluster and namespace to deploy the application
   destination:
