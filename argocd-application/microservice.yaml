@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: adservice
+  name: microservice
   # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
   labels:
-    name: adservice
+    name: microservice
 spec:
   # The project the application belongs to.
   project: default
