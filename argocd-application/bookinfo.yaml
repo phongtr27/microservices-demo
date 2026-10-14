@@ -12,7 +12,7 @@ spec:
 
   # Source of the application manifests
   source:
-    repoURL: https://github.com/phongtr27/bookinfos-demo.git  # Can point to either a Helm chart repo or a git repo.
+    repoURL: https://github.com/phongtr27/microservices-demo.git  # Can point to either a Helm chart repo or a git repo.
     targetRevision: dev
     path: kubernetes-manifests
 
