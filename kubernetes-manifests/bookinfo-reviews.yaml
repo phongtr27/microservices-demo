@@ -70,7 +70,7 @@ spec:
       steps:
       - setWeight: 50
       - pause:
-          duration: 10m
+          duration: 3m
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
