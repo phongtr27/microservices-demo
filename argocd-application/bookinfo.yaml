@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: microservice
+  name: bookinfo
   # You'll usually want to add your resources to the argocd namespace.
   namespace: argocd
   labels:
-    name: microservice
+    name: bookinfo
 spec:
   # The project the application belongs to.
   project: default
 
   # Source of the application manifests
   source:
-    repoURL: https://github.com/phongtr27/microservices-demo.git  # Can point to either a Helm chart repo or a git repo.
+    repoURL: https://github.com/phongtr27/bookinfos-demo.git  # Can point to either a Helm chart repo or a git repo.
     targetRevision: dev
     path: kubernetes-manifests
 
